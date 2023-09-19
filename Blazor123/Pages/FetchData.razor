@@ -1,0 +1,72 @@
+﻿@page "/fetchdata"
+
+@using Blazor123.Models;
+@using Blazor123.Services.Interfaces;
+@inject IStudentService _studentService;
+@inject NavigationManager navManager;
+
+<h1> list</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+<p>Hello pls work</p>
+
+@if (students == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Gender</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var student in students)
+				{
+					<tr>
+						<td>@student.FirstName</td>
+						<td>@student.LastName</td>
+						<td>@student.Email</td>
+						<td>@student.Gender</td>
+						<td>
+							<button type="submit" @onclick="(()=>UpdateStudent(student.StudentId))" class="btn btn-primary">Edit</button>
+							<button type="submit" @onclick="(()=>DeleteStudent(student))" class="btn btn-danger">Delete</button>
+
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+	
+}
+
+@code {
+	private List<StudentVm> students;
+
+	protected override async Task OnInitializedAsync()
+	{
+		students = await _studentService.GetAllStudents();
+	}
+
+	private async void DeleteStudent(StudentVm student)
+	{
+		var response = await _studentService.DeleteStudent(student);
+		if (response > 0)
+		{
+			await OnInitializedAsync();
+			this.StateHasChanged();
+		}
+	}
+
+	private void UpdateStudent(int studentId)
+	{
+		navManager.NavigateTo($"update_student/{studentId}");
+	}
+}
