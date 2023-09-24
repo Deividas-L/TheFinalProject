@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.WebView.Maui;
-using Blazor123.Data;
-using Blazor123.Services.Interfaces;
-using Blazor123.Services.Repos;
+using Blazor123.Domain.Repositories.Interfaces;
+using Blazor123.Domain.Repositories;
+using Blazor123.Application.Services.Interfaces;
+using Blazor123.Application.Services;
 
 namespace Blazor123;
 
@@ -21,8 +22,8 @@ public static class MauiProgram
 		#if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
-		builder.Services.AddSingleton<IStudentService, StudentService>();
-		builder.Services.AddSingleton<WeatherForecastService>();
+		builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
+		builder.Services.AddSingleton<IStudentService,StudentService>();
 
 		return builder.Build();
 	}
