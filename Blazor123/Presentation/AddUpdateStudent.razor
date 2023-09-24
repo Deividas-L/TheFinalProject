@@ -1,11 +1,12 @@
 ﻿@page "/add_student"
 @page "/update_student/{StudentId:int}"
 
-@using Blazor123.Models;
-@using Blazor123.Services.Interfaces;
+@using Blazor123.Application.Services.Interfaces
+@using Blazor123.Application.DTO
+
 @inject IStudentService _studentService;
 <h3>AddUpdateStudent</h3>
-
+<h3>SUEIFHSFHSDIFHSIFHSIDFHDSIUHFSDUIHFIUDSHFIUHSUIFHIUH</h3>
 <div class="form-group">
     <label>First Name</label>
     <input @bind="firstName" class="form-control" placeholder="First Name">
@@ -77,7 +78,7 @@
 
     private async void AddStudentRecord()
     {
-        var studentModel = new StudentVm
+        var studentModel = new StudentDto
             {
 
                 FirstName = firstName,

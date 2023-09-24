@@ -1,6 +1,6 @@
 ﻿namespace Blazor123;
 
-public partial class App : Application
+public partial class App : IApplication
 {
 	public App()
 	{

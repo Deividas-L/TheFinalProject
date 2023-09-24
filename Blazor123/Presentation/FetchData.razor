@@ -1,7 +1,7 @@
 ﻿@page "/fetchdata"
 
-@using Blazor123.Models;
-@using Blazor123.Services.Interfaces;
+@using Blazor123.Application.DTO
+@using Blazor123.Application.Services.Interfaces
 @inject IStudentService _studentService;
 @inject NavigationManager navManager;
 
@@ -48,14 +48,14 @@ else
 }
 
 @code {
-	private List<StudentVm> students;
+	private List<StudentDto> students;
 
 	protected override async Task OnInitializedAsync()
 	{
 		students = await _studentService.GetAllStudents();
 	}
 
-	private async void DeleteStudent(StudentVm student)
+	private async void DeleteStudent(StudentDto student)
 	{
 		var response = await _studentService.DeleteStudent(student);
 		if (response > 0)
